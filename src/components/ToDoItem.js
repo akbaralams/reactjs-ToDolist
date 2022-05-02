@@ -2,16 +2,15 @@ import React from "react";
 import Button from "./Button"
 import propTypes  from "prop-types"
 
-const ToDoItem = ({todo,del,openModal}) => {
-    const delById = id => {
-        del(id)
-    }
+const ToDoItem = ({todo,openModal}) => {
+   
     return(
         <div style={todoItem}>
             <p>{todo.title}</p>
             <div>
-                <Button text="Edit" variant="success" action={()=>openModal(todo.id, todo.title)} />
-                <Button text="Delete" variant="danger" action={()=> delById(todo.id)} />
+                <Button text="Edit" variant="success" action={()=>openModal(todo.id, todo.title,"edit")} />
+                {/* <Button text="Delete" variant="danger" action={()=> delById(todo.id)} /> */}
+                <Button text="Delete" variant="danger" action={()=>openModal(todo.id, todo.title,"delete")} />
             </div>
         </div>
     )

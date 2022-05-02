@@ -34,6 +34,37 @@
     width: 80%;
 }
 
+
+.modal-container-delete{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.modal-box-delete{
+    width: 40%;
+    height: 8rem;
+    background:#fff;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 35px;
+    text-align: center;
+    animation-name: show;
+    animation-duration: 0.8s;
+}
+
+.modal-box-delete h3{
+    color: #218DFD;
+    margin-bottom: 1rem;
+}
+
+
+
 @keyframes show {
     from {
         top: -100px;

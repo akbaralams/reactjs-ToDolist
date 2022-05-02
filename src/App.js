@@ -21,6 +21,7 @@ class App extends React.Component {
       }
     ],
     isEdit : false,
+    isDelete: false,
     editData: {
       id: "",
       title: ""
@@ -42,7 +43,7 @@ class App extends React.Component {
     const newData = {id,title}
     const newTodos = this.state.todos
     newTodos.splice((id-1), 1, newData)
-    console.log(newTodos);
+    //console.log(newTodos);
     this.setState({
       todos: newTodos,
       isEdit: false,
@@ -53,25 +54,45 @@ class App extends React.Component {
     })
   }
   
-  openModal = (id,data) => {
+  openModal = (id,data,aksi) => {
     //console.log(data);
-    this.setState({
-      isEdit: true,
-      editData : {
-        id,
-        title: data
-    }})
+    if(aksi === "delete"){
+      console.log("Delete");
+      this.setState({
+        isEdit: false,
+        isDelete: true,
+        editData : {
+          id,
+          title: data
+      }})
+    }else{
+      this.setState({
+        isEdit: true,
+        isDelete: false,
+        editData : {
+          id,
+          title: data
+      }})
+      console.log("Edit");
+    }
   }
 
   closeModal = () => {
     this.setState({
-      isEdit: false
+      isEdit: false,
+      isDelete: false
     })
   }
 
   deleteTask = id =>{
     this.setState({
-      todos: this.state.todos.filter(item=>item.id !== id)
+      todos: this.state.todos.filter(item=>item.id !== id),
+      isEdit: false,
+      isDelete: false,
+      editData: {
+        id: "",
+        title: ""
+      }
     })
   }
 
@@ -98,7 +119,6 @@ class App extends React.Component {
             <ToDoItem 
             key={item.id} 
             todo={item} 
-            del={this.deleteTask} 
             openModal= {this.openModal} />
             )
           }
@@ -106,12 +126,15 @@ class App extends React.Component {
         <div className="input-form">
           <FormInput add={this.addTask}/>
         </div>
+        
         <EditModal 
           edit={this.state.isEdit} 
+          delete={this.state.isDelete} 
           closeModal={this.closeModal} 
           change={this.setTitle} 
           data={this.state.editData}
           update={this.update}
+          del={this.deleteTask} 
         />
       </div>
     );
